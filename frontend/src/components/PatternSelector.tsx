@@ -6,13 +6,13 @@ import { type Pattern } from "../utils/types";
 const initialPatterns: Pattern[] = [
   {
     id: "pattern1",
-    name: "Floral Pattern",
+    name: "Pattern 1",
     thumbnailUrl: "/img/p1.jpg",
     imageUrl: "/img/p1.jpg",
   },
   {
     id: "pattern2",
-    name: "Geometric Pattern",
+    name: "Pattern 2",
     thumbnailUrl: "/img/p2.jpg",
     imageUrl: "/img/p2.jpg",
   },
@@ -49,7 +49,7 @@ function PatternSelector() {
 
   return (
     <div className="mx-auto max-w-6xl">
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-4 lg:grid-cols-3">
+      <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:grid-cols-4">
         {patterns.map((p) => (
           <button
             key={p.id}
@@ -71,11 +71,6 @@ function PatternSelector() {
               <div className="text-lg font-semibold text-gray-800">
                 {p.name}
               </div>
-              {curPattern?.id === p.id && (
-                <div className="mt-2 text-sm font-medium text-purple-600">
-                  ✓ Selected
-                </div>
-              )}
             </div>
           </button>
         ))}

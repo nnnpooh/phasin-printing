@@ -151,7 +151,7 @@ function Preview() {
         ref={previewRef}
         className="mb-6 w-full rounded-2xl shadow-2xl"
         style={{
-          height: 300,
+          height: 250,
           display: "block",
           backgroundColor: "#ffffffff",
         }}
@@ -197,7 +197,7 @@ function PrintButton({ previewRef }: Props) {
     <button
       onClick={handlePrint}
       disabled={printing}
-      className="fixed bottom-8 right-8 z-20 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-green-500 to-emerald-600 px-8 py-4 text-lg font-bold text-white shadow-2xl shadow-green-400/50 transition-all duration-300 hover:shadow-green-500/70 hover:scale-110 active:scale-100 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
+      className="fixed bottom-8 right-8 z-20 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-green-500 to-emerald-600 px-6 py-3 text-md font-bold text-white shadow-2xl shadow-green-400/50 transition-all duration-300 hover:shadow-green-500/70 hover:scale-110 active:scale-100 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
     >
       {printing ? (
         <>

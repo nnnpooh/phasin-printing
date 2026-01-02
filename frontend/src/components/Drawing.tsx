@@ -149,7 +149,7 @@ function Drawing() {
           ref={canvasRef}
           className="block w-full cursor-crosshair touch-none"
           style={{
-            height: 300,
+            height: 250,
             backgroundColor: "#ffffffff",
             touchAction: "none",
           }}
