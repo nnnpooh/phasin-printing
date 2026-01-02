@@ -7,14 +7,14 @@ const initialPatterns: Pattern[] = [
   {
     id: "pattern1",
     name: "Floral Pattern",
-    thumbnailUrl: "/p1.jpg",
-    imageUrl: "/p1.jpg",
+    thumbnailUrl: "/img/p1.jpg",
+    imageUrl: "/img/p1.jpg",
   },
   {
     id: "pattern2",
     name: "Geometric Pattern",
-    thumbnailUrl: "/p2.jpg",
-    imageUrl: "/p2.jpg",
+    thumbnailUrl: "/img/p2.jpg",
+    imageUrl: "/img/p2.jpg",
   },
 ];
 

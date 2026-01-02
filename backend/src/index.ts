@@ -9,7 +9,6 @@ import type { ErrorRequestHandler } from "express";
 
 const debug = Debug("myapp");
 const app = express();
-app.use(cors({ origin: false }));
 
 //Middleware
 app.use(morgan("dev", { immediate: false }));
@@ -23,9 +22,12 @@ app.use(
 // Extracts the entire body portion of an incoming request stream and exposes it on req.body.
 app.use(express.json());
 
-// Endpoints
-app.get("/", async (req, res, next) => {
-  res.send("OK");
+// Serving built frontend
+app.use(express.static("public"));
+
+// Catch all endpoints
+app.use(async (req, res, next) => {
+  res.sendFile("index.html", { root: "public" });
 });
 
 // JSON Error Middleware
