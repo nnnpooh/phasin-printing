@@ -1,4 +1,4 @@
-type PrintJobFn = () => Promise<unknown> | unknown;
+type PrintJobFn = (file?: any) => Promise<void>;
 
 type QueueItem = {
   jobFn: PrintJobFn;
@@ -13,7 +13,7 @@ export function getPrintStatus(): { queueLength: number; isPrinting: boolean } {
   return { queueLength: queue.length, isPrinting: printing };
 }
 
-export function enqueuePrintJob(jobFn: PrintJobFn): Promise<unknown> {
+export function enqueuePrintJob(jobFn: PrintJobFn) {
   return new Promise((resolve, reject) => {
     queue.push({ jobFn, resolve, reject });
     void processQueue();
