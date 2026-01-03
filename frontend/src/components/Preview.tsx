@@ -1,17 +1,16 @@
 import { useAtom } from "jotai";
-import { useEffect, useRef, useState } from "react";
-import usePrinter from "../hooks/usePrinter";
+import { useEffect, useRef } from "react";
 import {
   curPatternAtom,
   drawingDataAtom,
   isModalOpenAtom,
 } from "../utils/atoms";
-
+import PayPrintModal from "./PayPrintModal";
 function Preview() {
   const [curPattern] = useAtom(curPatternAtom);
   const [canvasData] = useAtom(drawingDataAtom);
   const previewRef = useRef<HTMLCanvasElement | null>(null);
-  const [isModalOpen, setIsModalOpen] = useAtom(isModalOpenAtom);
+  const [_, setIsModalOpen] = useAtom(isModalOpenAtom);
 
   const getPatternImage = async (): Promise<HTMLImageElement | null> => {
     if (!curPattern) return null;
@@ -162,210 +161,15 @@ function Preview() {
           backgroundColor: "#ffffffff",
         }}
       />
-      <PrintButton previewRef={previewRef} />
-      <PrinterStatusBar />
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <button
+        className="fixed bottom-8 right-8 bg-gradient-to-r from-green-600 to-emerald-500 px-6 py-3 text-white rounded-full shadow-lg hover:scale-105 active:scale-100 transition-transform font-bold"
+        onClick={() => setIsModalOpen(true)}
+      >
+        Pay & Print
+      </button>
+      <PayPrintModal previewRef={previewRef} />
     </div>
   );
 }
 
 export default Preview;
-
-interface PropsPrintButton {
-  previewRef: React.RefObject<HTMLCanvasElement | null>;
-}
-
-function PrintButton({ previewRef }: PropsPrintButton) {
-  const [printing, setPrinting] = useState(false);
-  const [_, setIsModalOpen] = useAtom(isModalOpenAtom);
-
-  const handlePrint = async () => {
-    setPrinting(true);
-    setIsModalOpen(true);
-    const canvasRef = previewRef.current;
-    if (!canvasRef) return;
-
-    canvasRef.toBlob((blob) => {
-      const formData = new FormData();
-      if (blob) {
-        formData.append("image", blob, "image.png");
-
-        fetch("/api/print", {
-          method: "POST",
-          body: formData,
-        })
-          .then((res) => {
-            if (!res.ok) {
-              console.error("Print request failed");
-            }
-          })
-          .catch((err) => {
-            console.error("Print request error:", err);
-          })
-          .finally(() => {
-            setPrinting(false);
-          });
-      }
-    }, "image/png");
-
-    // const dataUrl = canvasRef.toDataURL("image/png");
-    // const res = await fetch("/api/print", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({
-    //     dataUrl: dataUrl,
-    //   }),
-    // });
-    // if (!res.ok) {
-    //   const text = await res.text();
-    //   console.error("Print request failed:", text);
-    // }
-  };
-
-  return (
-    <button
-      onClick={handlePrint}
-      disabled={printing}
-      className="fixed bottom-8 right-8 z-20 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-green-500 to-emerald-600 px-6 py-3 text-md font-bold text-white shadow-2xl shadow-green-400/50 transition-all duration-300 hover:shadow-green-500/70 hover:scale-110 active:scale-100 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 z-100"
-    >
-      {printing ? (
-        <>
-          <svg
-            className="h-5 w-5 animate-spin"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-            ></circle>
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            ></path>
-          </svg>
-          Printing...
-        </>
-      ) : (
-        <>Print</>
-      )}
-    </button>
-  );
-}
-
-function PrinterStatusBar() {
-  const { printStatus, isLoading, error } = usePrinter();
-
-  const statusLabel = printStatus
-    ? printStatus.isPrinting
-      ? "Printing"
-      : "Idle"
-    : "Unavailable";
-
-  return (
-    <div className="fixed left-6 bottom-6 z-100">
-      <div className="flex items-center gap-3 rounded-full bg-white/90 backdrop-blur px-4 py-2 shadow-lg border border-gray-200">
-        <div className="flex items-center gap-2">
-          {isLoading ? (
-            <svg
-              className="h-4 w-4 animate-spin text-gray-700"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
-            </svg>
-          ) : (
-            <span
-              className={`h-3 w-3 rounded-full ${
-                printStatus?.isPrinting ? "bg-rose-500" : "bg-emerald-500"
-              }`}
-            />
-          )}
-
-          <span className="text-sm font-semibold text-gray-800">
-            Printer: {statusLabel}
-          </span>
-        </div>
-
-        <span className="text-sm text-gray-600">
-          Queue: {printStatus?.queueLength ?? "-"}
-        </span>
-
-        {error && <span className="ml-2 text-sm text-red-600">Error</span>}
-      </div>
-
-      {error && (
-        <div className="mt-2 px-3 py-1 rounded-md bg-red-50 text-red-700 text-sm shadow-inner max-w-xs">
-          {String((error as any)?.message ?? error)}
-        </div>
-      )}
-    </div>
-  );
-}
-
-interface PropsModal {
-  isOpen: boolean;
-  onClose: () => void;
-}
-function Modal({ isOpen, onClose }: PropsModal) {
-  if (!isOpen) return null;
-  return (
-    <div
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50"
-      onClick={onClose} // Close modal when clicking outside
-    >
-      {/* Modal content container */}
-      <div
-        className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full m-4"
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
-      >
-        {/* Header with close button */}
-        <div className="flex justify-between items-center mb-3">
-          <h2 className="text-2xl font-bold text-gray-800">Payment (Mocked)</h2>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition duration-150 text-3xl leading-none"
-          >
-            &times;
-          </button>
-        </div>
-
-        {/* Payment instructions */}
-        <div className="mb-3 flex gap-2 items-end justify-center ">
-          <span className="text-gray-600">Scan QR code to pay</span>
-          <span className="text-2xl font-bold text-green-600">฿400</span>
-        </div>
-
-        {/* QR Code */}
-        <div className="flex justify-center mb-3">
-          <div className="bg-white p-2 rounded-lg border-2 border-gray-200">
-            <img
-              src="/img/qr.png"
-              alt="Payment QR Code"
-              className="w-30 h-30 object-contain"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
