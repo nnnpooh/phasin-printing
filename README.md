@@ -1,6 +1,6 @@
 # Phasin Printing Project
 
-- This repository contains the source files and documentation for the Phasin Printing Project for ITPC innovation project for P3 students.
+- This repository contains the source files and documentation for the Phasin Printing Project for ITPC innovation project for Primary-3 students.
 - The application simulates the printing of Phasin using thermal printers.
 
 # Get Started
@@ -20,4 +20,4 @@
 - `pnpm run build`
 - `pnpm run start`
 
-The backend server should now be running at `http://localhost:3001`.
+  - The backend server should now be running at `http://localhost:3001`.
