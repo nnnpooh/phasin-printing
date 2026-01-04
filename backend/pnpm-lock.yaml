@@ -20,6 +20,9 @@ importers:
       escpos:
         specifier: 3.0.0-alpha.6
         version: 3.0.0-alpha.6
+      escpos-usb:
+        specifier: 3.0.0-alpha.4
+        version: 3.0.0-alpha.4
       express:
         specifier: ^5.2.1
         version: 5.2.1
@@ -51,6 +54,9 @@ importers:
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12
+      '@types/escpos':
+        specifier: ^2.5.5
+        version: 2.5.5
       '@types/express':
         specifier: ^5.0.6
         version: 5.0.6
@@ -404,6 +410,9 @@ packages:
   '@types/debug@4.1.12':
     resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
 
+  '@types/escpos@2.5.5':
+    resolution: {integrity: sha512-ryuWVglRj++vfklNKm3MKJ4crW+n+m6UtmgGRjHhCYd3QTfhC4hzC0VptLQ8ssAjlR7tMWEZpkbQuW4NDJ4JOA==}
+
   '@types/express-serve-static-core@5.1.0':
     resolution: {integrity: sha512-jnHMsrd0Mwa9Cf4IdOzbz543y4XJepXrbia2T4b6+spXC2We3t1y6K44D3mR8XMFSXMCf3/l7rCgddfx7UNVBA==}
 
@@ -436,6 +445,9 @@ packages:
 
   '@types/serve-static@2.2.0':
     resolution: {integrity: sha512-8mam4H1NHLtu7nmtalF7eyBH14QyOASmcxHhSfEoRyr0nP/YdoesEtU+uSRvMe96TW/HPTtkoKqQLl53N7UXMQ==}
+
+  '@types/w3c-web-usb@1.0.13':
+    resolution: {integrity: sha512-N2nSl3Xsx8mRHZBvMSdNGtzMyeleTvtlEw+ujujgXalPqOjIA6UtrqcB6OzyUjkTbDm3J7P1RNK1lgoO7jxtsw==}
 
   accepts@2.0.0:
     resolution: {integrity: sha512-5cvg6CtKwfgdmVqY1WIiXKc3Q1bkRqGLi+2W/6ao+6Y7gu/RCwRuAhGEzh5B4KlszSuTLgZYuqFqo5bImjNKng==}
@@ -643,6 +655,9 @@ packages:
 
   escape-html@1.0.3:
     resolution: {integrity: sha512-NiSupZ4OeuGwr68lGIeym/ksIZMJodUGOSCZ/FSnTxcrekbvqrgdUxlJOMpijaKZVjAJrWrGs/6Jy8OMuyj9ow==}
+
+  escpos-usb@3.0.0-alpha.4:
+    resolution: {integrity: sha512-SX/MlDZ0HEXFb4OZeUmXvA9hOkozU9IbWoxw4H7JbuQlVLZxBsL6bx/ZeReZlXViN2SyFJedIyNrFvVFu2Mpsw==}
 
   escpos@3.0.0-alpha.6:
     resolution: {integrity: sha512-c8AkmO6i9+Jjp1+KWlS3Bv/1VspaS1VSM+UX4XMN/7ICwnrdgF0Y4Oi+8kJxIit7M9xXEdN6ry//7Vbgr/Q0dw==}
@@ -923,9 +938,17 @@ packages:
     resolution: {integrity: sha512-8Ofs/AUQh8MaEcrlq5xOX0CQ9ypTF5dl78mjlMNfOK08fzpgTHQRQPBxcPlEtIw0yRpws+Zo/3r+5WRby7u3Gg==}
     engines: {node: '>= 0.6'}
 
+  node-addon-api@8.5.0:
+    resolution: {integrity: sha512-/bRZty2mXUIFY/xU5HLvveNHlswNJej+RnxBjOMkidWfwZzgTbPG1E3K5TOxRLOR+5hX7bSofy8yf1hZevMS8A==}
+    engines: {node: ^18 || ^20 || >= 21}
+
   node-bitmap@0.0.1:
     resolution: {integrity: sha512-Jx5lPaaLdIaOsj2mVLWMWulXF6GQVdyLvNSxmiYCvZ8Ma2hfKX0POoR2kgKOqz+oFsRreq0yYZjQ2wjE9VNzCA==}
     engines: {node: '>=v0.6.5'}
+
+  node-gyp-build@4.8.4:
+    resolution: {integrity: sha512-LA4ZjwlnUblHVgq0oBF3Jl/6h/Nvs5fzBLwdEF4nuxnFdsfajde4WfxtJr3CaiH+F6ewcIB/q4jQ4UzPyid+CQ==}
+    hasBin: true
 
   node-thermal-printer@4.5.0:
     resolution: {integrity: sha512-HJVyfq9Lr5+t1rDXlz9AgeNEqK1xsRzK5bP3DGmx60QVe5pmihrD18tyuM9xx4Eq5HqmQKyEqAK09Z4+9gyAcg==}
@@ -1215,6 +1238,10 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
+  usb@2.16.0:
+    resolution: {integrity: sha512-jD88fvzDViMDH5KmmNJgzMBDj/95bDTt6+kBNaNxP4G98xUTnDMiLUY2CYmToba6JAFhM9VkcaQuxCNRLGR7zg==}
+    engines: {node: '>=12.22.0 <13.0 || >=14.17.0'}
+
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
@@ -1455,6 +1482,10 @@ snapshots:
     dependencies:
       '@types/ms': 2.1.0
 
+  '@types/escpos@2.5.5':
+    dependencies:
+      '@types/node': 25.0.3
+
   '@types/express-serve-static-core@5.1.0':
     dependencies:
       '@types/node': 25.0.3
@@ -1496,6 +1527,8 @@ snapshots:
     dependencies:
       '@types/http-errors': 2.0.5
       '@types/node': 25.0.3
+
+  '@types/w3c-web-usb@1.0.13': {}
 
   accepts@2.0.0:
     dependencies:
@@ -1714,6 +1747,10 @@ snapshots:
       '@esbuild/win32-x64': 0.27.2
 
   escape-html@1.0.3: {}
+
+  escpos-usb@3.0.0-alpha.4:
+    dependencies:
+      usb: 2.16.0
 
   escpos@3.0.0-alpha.6:
     dependencies:
@@ -2029,7 +2066,11 @@ snapshots:
 
   negotiator@1.0.0: {}
 
+  node-addon-api@8.5.0: {}
+
   node-bitmap@0.0.1: {}
+
+  node-gyp-build@4.8.4: {}
 
   node-thermal-printer@4.5.0:
     dependencies:
@@ -2374,6 +2415,12 @@ snapshots:
   uri-js@4.4.1:
     dependencies:
       punycode: 2.3.1
+
+  usb@2.16.0:
+    dependencies:
+      '@types/w3c-web-usb': 1.0.13
+      node-addon-api: 8.5.0
+      node-gyp-build: 4.8.4
 
   util-deprecate@1.0.2: {}
 
